@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羽田醫美診所 | 專屬你的美，從這裡開始</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 變數與基礎設定 --- */
+        :root {
+            --primary-bg: #F5EDE3;     /* 米白裸膚粉 */
+            --accent-gold: #C9A96E;    /* 點綴金 */
+            --text-dark: #2F2924;      /* 深沉炭褐 (比純黑更高級) */
+            --text-muted: #746A62;     /* 柔和灰褐 */
+            --pure-white: #FFFFFF;     /* 紙白 */
+            --font-serif: 'Noto Serif TC', serif;
+            --font-sans: 'Noto Sans TC', sans-serif;
+            --shadow: 0 4px 20px rgba(201, 169, 110, 0.08);
+            --border-radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background-color: var(--pure-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .magazine-title {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- 全局按鈕樣式 --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: var(--pure-white);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn-gold:hover {
+            background-color: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            background-color: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent-gold);
+            color: var(--pure-white);
+        }
+
+        /* --- 頂部導覽列 Navbar --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.02);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+        }
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* 行動端選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-dark);
+        }
+
+        /* --- Hero 英雄視覺區 --- */
+        .hero {
+            height: 100vh;
+            /* 使用美感意象圖佔位，實務上可替換為診所高端意象照 */
+            background: linear-gradient(rgba(47, 41, 36, 0.4), rgba(47, 41, 36, 0.4)), url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            color: var(--pure-white);
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* --- 區塊通用通用樣式 --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-gold);
+            margin: 15px auto 0;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+            font-size: 1rem;
+        }
+
+        /* 交錯背景色 */
+        .bg-light { background-color: var(--primary-bg); }
+        .bg-white { background-color: var(--pure-white); }
+
+        /* --- 品牌亮點區 (三欄卡片) --- */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .highlight-card {
+            background-color: var(--pure-white);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-card .icon {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .highlight-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 服務項目區 (Grid 卡片) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background-color: var(--pure-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            box-shadow: var(--shadow);
+        }
+
+        .service-img {
+            height: 180px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        /* --- 為什麼選擇我們區 --- */
+        .why-us {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .why-us-content, .why-us-img {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .why-us-img img {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .why-us h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .why-us p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* --- 風險與諮詢/FAQ 區 --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: var(--pure-white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .flow-step .step-num {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-gold);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+
+        .faq-item {
+            background-color: var(--pure-white);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background-color: var(--primary-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 200px;
+            border-top: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        /* --- 預約與聯絡區 --- */
+        .contact-wrapper {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .booking-form-box, .map-info-box {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .booking-form {
+            background-color: var(--primary-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: var(--border-radius);
+            background-color: var(--pure-white);
+            font-family: var(--font-sans);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 280px;
+            background-color: #e5e3df;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border: 1px solid #ddd;
+        }
+
+        .info-list p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* --- Footer 頁尾 --- */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--primary-bg);
+            padding: 50px 10%;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .social-links a {
+            color: var(--primary-bg);
+            border: 1px solid rgba(245, 237, 227, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: var(--pure-white);
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* --- 右下角固定懸浮按鈕 --- */
+        .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-gold);
+            color: var(--pure-white);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .floating-cta:hover {
+            transform: scale(1.05);
+            background-color: var(--text-dark);
+        }
+
+        /* --- 響應式排版 (RWD) 調整 --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* 實務上可串接 JS 漢堡選單，此處點擊直接前往預約 */
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            section {
+                padding: 60px 5%;
+            }
+            .floating-cta {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">HADA <span>羽田醫美診所</span></a>
+        <div class="nav-links">
+            <a href="#highlights">品牌亮點</a>
+            <a href="#services">療程服務</a>
+            <a href="#why-us">專業團隊</a>
+            <a href="#faq">知情與問答</a>
+            <a href="#booking" class="btn btn-outline" style="padding: 8px 20px;">立即預約</a>
+        </div>
+        <div class="menu-toggle" onclick="document.getElementById('booking').scrollIntoView();">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>專屬你的美，<br>從這裡開始</h1>
+            <p>羽田醫美以尖端技術與透明的風險告知，陪伴初次接觸醫美的你，在舒適具雜誌感的美學空間中，安心探索專屬自己的精緻美感。</p>
+            <a href="#booking" class="btn btn-gold">預約客製化諮詢</a>
+        </div>
+    </header>
+
+    <section id="highlights" class="bg-light">
+        <h2 class="section-title">品牌核心亮點</h2>
+        <p class="section-subtitle">給予 Z 世代最安心、高效率的醫美微體驗</p>
+        
+        <div class="highlights-grid">
+            <div class="highlight-card">
+                <div class="icon">📍</div>
+                <h3>極致便利交通</h3>
+                <p>緊鄰都會區捷運站出口，步行僅需 3 分鐘。完美配合你緊湊的高效生活步調。</p>
+            </div>
+            <div class="highlight-card">
+                <div class="icon">👩‍⚕️</div>
+                <h3>頂尖醫師團隊</h3>
+                <p>擁有完整專業證照與美感底蘊，針對個人原生輪廓進行微調，拒絕複製臉。</p>
+            </div>
+            <div class="highlight-card">
+                <div class="icon">🛡️</div>
+                <h3>透明風險告知</h3>
+                <p>杜絕盲目推銷。療程前完整說明術後風險與復原期，讓你有充分時間思考決定。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="bg-white">
+        <h2 class="section-title">四大核心療程範疇</h2>
+        <p class="section-subtitle">從基礎保養到精緻微調，全方位滿足肌膚渴望</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="service-info"><h3>基礎護膚</h3></div>
+            </div>
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="service-info"><h3>精準雷射</h3></div>
+            </div>
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="service-info"><h3>微整雕塑</h3></div>
+            </div>
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="service-info"><h3>進階醫美</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us" class="bg-light">
+        <div class="why-us">
+            <div class="why-us-content">
+                <h2>先進醫療器材<br>與質感空間的完美交織</h2>
+                <p>羽田醫美診所全面引進通過衛福部認證之全新一代原廠正貨儀器。我們深知 Z 世代年輕族群對於未知醫療風險的擔憂，因此在軟硬體設計上，皆強調高透明度與安全性。</p>
+                <p>除了卓越的醫療品質，我們特別將診所打造為「高端雜誌風格」與「IG友善視覺空間」，洗落傳統醫療院所的冰冷與緊張感，讓每一次看診、護膚都成為一場舒適的生活儀式。</p>
+                <a href="#booking" class="btn btn-gold" style="margin-top: 15px;">探索羽田美學</a>
+            </div>
+            <div class="why-us-img">
+                <img href="https://www.yutianclinic.com/" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="診所環境">
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="bg-white">
+        <h2 class="section-title">風險與諮詢說明</h2>
+        <p class="section-subtitle">給予你最高規格的知情權，美麗不需冒險</p>
+        
+        <div class="faq-container">
+            <div class="process-flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <h4>專業諮詢</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">分析原貌與期望</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <h4>風險告知</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">完整解析復原期</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <h4>冷靜思考</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">同意後再行排程</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q1. 第一次做醫美雷射，會不會留下永久副作用？ <span>+</span></div>
+                <div class="faq-answer">所有醫療行為皆有其常態風險。羽田在進行療程前，皆會由專業醫師評估您的膚質狀況（如是否有蟹足腫體質、近期是否曝曬等），並選用最適合的能量引導，將紅腫與反黑機率降至最低。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q2. 你們現場會不會有高壓強迫推銷的情況？ <span>+</span></div>
+                <div class="faq-answer">絕對不會。羽田醫美核心價值在於透明度與安全感。我們提倡「可思考後再決定」的無壓力評估政策，您可以充分回家思量、與親友討論後再行線上預約。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q3. 微整注射療程完，當天可以直接上妝出門嗎？ <span>+</span></div>
+                <div class="faq-answer">依據療程針孔大小與微整項目而異。通常玻尿酸或肉毒微整在施作後 4-6 小時內應避免大力壓迫與濃妝，詳細的術後護理與專屬修復包，護理師都會在現場為您進行完整衛教說明。</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="bg-light">
+        <h2 class="section-title">即刻啟程 預約美好</h2>
+        <p class="section-subtitle">填寫簡要資訊，我們將由專人與您進行私密確認</p>
+        
+        <div class="contact-wrapper">
+            <div class="booking-form-box">
+                <form class="booking-form" onsubmit="alert('謝謝您的預約！本網頁為形象研究原型，正式上線後將串接後端資料庫。'); return false;">
+                    <div class="form-group">
+                        <label for="name">您的姓名 *</label>
+                        <input type="text" id="name" class="form-control" placeholder="請輸入姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">行動電話 *</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="請輸入手機號碼" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">感興趣的療程項目</label>
+                        <select id="interest" class="form-control">
+                            <option value="skin">基礎護膚 / 膚質管理</option>
+                            <option value="laser">皮秒、精準雷射</option>
+                            <option value="micro">微整雕塑 (肉毒/玻尿酸)</option>
+                            <option value="advanced">進階客製化醫美</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px;">送出預約申請</button>
+                </form>
+            </div>
+
+            <div class="map-info-box">
+                <div class="map-placeholder">
+                    📍 Google Map 嵌入位置 (鄰近捷運站出口)
+                </div>
+                <div class="info-list">
+                    <p><strong>診所地址：</strong> 都會區美學商圈（捷運站 3 號出口步行 3 分鐘）</p>
+                    <p><strong>營業時間：</strong> 週一至週六 12:00 - 21:00 (週日公休)</p>
+                    <p><strong>諮詢專線：</strong> 02-XXXX-XXXX</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.yutianclinic.com/" target="_blank">Web</a>
+            <a href="#">FB</a>
+            <a href="#">IG</a>
+            <a href="#">YT</a>
+        </div>
+        <p>本網頁為「羽田醫美診所品牌形象官網 Landing Page」設計研究原型。</p>
+        <p style="margin-top: 5px;">© 2026 羽田醫美診所 研究原型. 版權所有.</p>
+    </footer>
+
+    <a href="#booking" class="floating-cta">
+        📅 立即預約
+    </a>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                // 切換目前點擊項目的 active 狀態
+                item.classList.toggle('active');
+                
+                // 更換正負號圖示
+                const span = question.querySelector('span');
+                if (item.classList.contains('active')) {
+                    span.textContent = '−';
+                } else {
+                    span.textContent = '+';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
